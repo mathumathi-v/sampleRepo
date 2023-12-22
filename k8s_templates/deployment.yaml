@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment
-  namespace: ns_sample1
+  namespace: ns1
   labels:
     app: react-app
 spec:
