@@ -17,14 +17,6 @@
 
 FROM jenkins/inbound-agent:3192.v713e3b_039fb_e-5
 
-RUN apt-get update && \
-      apt-get -y install sudo
-      
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-
-USER docker
-CMD /bin/bash
-
 RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes.gpg
 
 RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/kubernetes.gpg] http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list
