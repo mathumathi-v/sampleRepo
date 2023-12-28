@@ -25,7 +25,7 @@ RUN apt install -y curl
 # RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/kubernetes.gpg] http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list
 
 RUN apt-get update
-
+RUN curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
 RUN apt-get install -y kubectl
 
 # RUN kubectl cluster-info
