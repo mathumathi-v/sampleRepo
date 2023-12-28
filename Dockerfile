@@ -15,16 +15,16 @@
 
 # CMD ["npm", "start"]
 
-FROM ubuntu:latest
+FROM jenkins/inbound-agent:3192.v713e3b_039fb_e-5
 
-RUN yum install -y curl
+RUN apt install -y curl
 
 RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes.gpg
 
 RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/kubernetes.gpg] http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list
 
-RUN yum update
+RUN apt-get update
 
-RUN yumt install -y kubelet kubeadm kubectl
+RUN apt-get install -y kubelet kubeadm kubectl
 
 RUN kubectl cluster-info
