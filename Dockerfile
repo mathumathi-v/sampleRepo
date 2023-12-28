@@ -17,7 +17,9 @@
 
 FROM jenkins/inbound-agent:3192.v713e3b_039fb_e-5
 
-RUN sudo apt install -y curl
+USER root
+
+RUN apt install -y curl
 
 RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes.gpg
 
