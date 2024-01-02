@@ -5,6 +5,9 @@ USER root
 RUN apk --no-cache add curl
 RUN curl --version
 
+# apt-get
+RUN apk add apt-get
+
 # kubectl
 RUN apt-get update
 RUN curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
@@ -27,6 +30,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] http
 RUN sudo apt update
 RUN sudo apt install terraform -y
 RUN terraform version
+
 # python
 RUN apt update
 RUN apt install python3
