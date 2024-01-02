@@ -1,5 +1,4 @@
 FROM alpine:latest
-USER root
 
 # curl
 RUN apk --no-cache add curl
