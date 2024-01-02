@@ -1,3 +1,29 @@
+FROM jenkins/inbound-agent:3192.v713e3b_039fb_e-5
+USER root
+
+# kubernetes
+RUN apt install -y curl
+RUN apt-get update
+RUN curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
+RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+USER jenkins
+ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
+# grype
+RUN curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+RUN grype version
+# helm
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+RUN chmod 700 get_helm.sh
+RUN ./get_helm.sh
+# terraform
+RUN wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+RUN sudo apt update
+RUN sudo apt install terraform -y
+RUN terraform version
+
+
+
 # # FROM node:19-alpine3.16
 
 # # WORKDIR /react-app
@@ -15,20 +41,7 @@
 
 # # CMD ["npm", "start"]
 
-FROM jenkins/inbound-agent:3192.v713e3b_039fb_e-5
-USER root
 
-RUN apt install -y curl
-
-# RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /etc/apt/keyrings/kubernetes.gpg
-
-# RUN echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/kubernetes.gpg] http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list
-
-RUN apt-get update
-RUN curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
-RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-USER jenkins
-ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
 # RUN apt-get install -y kubectl
 
 # RUN kubectl cluster-info
