@@ -1,20 +1,27 @@
-FROM jenkins/inbound-agent:3192.v713e3b_039fb_e-5
+FROM alpine:latest
 USER root
 
-# kubernetes
+# curl
+RUN apk --no-cache add curl
+RUN curl --version
+
+# kubectl
 RUN apt install -y curl
 RUN apt-get update
 RUN curl -LO https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl
 RUN install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 USER jenkins
 ENTRYPOINT ["/usr/local/bin/jenkins-agent"]
-# grype
-RUN curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
-RUN grype version
+
 # helm
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 RUN chmod 700 get_helm.sh
 RUN ./get_helm.sh
+
+# grype
+RUN curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+RUN grype version
+
 # terraform
 RUN wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
