@@ -21,6 +21,9 @@ RUN echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] http
 RUN sudo apt update
 RUN sudo apt install terraform -y
 RUN terraform version
+# python
+RUN apt update
+RUN apt install python3
 
 
 
