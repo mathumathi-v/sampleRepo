@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: maven-helloworld
-        image: test/hello-world
+        image: dxb.ocir.io/axgucdgtb9mk/test/hello-world:v25
         ports:
         - containerPort: 3000
       imagePullSecrets:
