@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: deployment
-  namespace: ns1
+  namespace: default
   labels:
-    app: react-app
+    app: maven-helloworld
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: react-app
+      app: maven-helloworld
   template:
     metadata:
       labels:
-        app: react-app 
+        app: maven-helloworld
     spec:
       containers:
-      - name: react-app
-        image: sample/react-app:latest
+      - name: maven-helloworld
+        image: test/hello-world
         ports:
         - containerPort: 3000
