@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-maven
+  name: maven-helloworld
   namespace: default
   labels:
     app: maven-helloworld
@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: maven-helloworld
-        image: dxb.ocir.io/axgucdgtb9mk/test/hello-world:v25
+        image: dxb.ocir.io/axgucdgtb9mk/hello-world:v1
         ports:
-        - containerPort: 3000
+        - containerPort: 8080
       imagePullSecrets:
       - name: registrypullsecret
