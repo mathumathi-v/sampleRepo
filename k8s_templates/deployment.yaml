@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: maven-helloworld
-        image: dxb.ocir.io/axgucdgtb9mk/core-platform-api/bo-platform:v10
+        image: nginx
         ports:
         - containerPort: 8080
       imagePullSecrets:
